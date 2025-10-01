@@ -8,38 +8,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class MainActivity : AppCompatActivity() {
+class EmiActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_emi)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        val loanButton = findViewById<Button>(R.id.loanButton)
+        val back = findViewById<Button>(R.id.backButton)
 
         // Set click listener to navigate to EMI page
-        loanButton.setOnClickListener {
-            val intent = Intent(this, EmiActivity::class.java)
-            startActivity(intent)
-        }
-
-        val incomeButton = findViewById<Button>(R.id.incomeButton)
-
-        // Set click listener to navigate to EMI page
-        incomeButton.setOnClickListener {
-            intent = Intent(this, IncomeActivity::class.java)
-            startActivity(intent)
-        }
-
-        val expenseButton = findViewById<Button>(R.id.expenseButton)
-
-        // Set click listener to navigate to EMI page
-        expenseButton.setOnClickListener {
-            intent = Intent(this, ExpenseActivity::class.java)
+        back.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
     }

@@ -7,40 +7,32 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import android.widget.Toast
 
-class MainActivity : AppCompatActivity() {
+class IncomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_income)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        val loanButton = findViewById<Button>(R.id.loanButton)
+        val back = findViewById<Button>(R.id.backButton)
 
         // Set click listener to navigate to EMI page
-        loanButton.setOnClickListener {
-            val intent = Intent(this, EmiActivity::class.java)
+        back.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
-        val incomeButton = findViewById<Button>(R.id.incomeButton)
+        val submitButton = findViewById<Button>(R.id.submitButton)
 
-        // Set click listener to navigate to EMI page
-        incomeButton.setOnClickListener {
-            intent = Intent(this, IncomeActivity::class.java)
-            startActivity(intent)
-        }
-
-        val expenseButton = findViewById<Button>(R.id.expenseButton)
-
-        // Set click listener to navigate to EMI page
-        expenseButton.setOnClickListener {
-            intent = Intent(this, ExpenseActivity::class.java)
-            startActivity(intent)
+        // Set click listener to show toast
+        submitButton.setOnClickListener {
+            Toast.makeText(this, "Income added", Toast.LENGTH_SHORT).show()
         }
     }
 }
