@@ -10,7 +10,7 @@
     <View
         android:id="@+id/colorBlock"
         android:layout_width="0dp"
-        android:layout_height="35dp"
+        android:layout_height="40dp"
         android:background="#059669"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,9 +22,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@null"
-        android:textSize="35dp"
+        android:textSize="30dp"
         android:gravity="center"
         android:inputType="text"
+        android:textStyle="bold"
         android:text="EMI Calculator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.584"
@@ -33,35 +34,46 @@
 
     <Button
         android:id="@+id/loanButton"
-        android:layout_width="103dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="25dp"
+        android:layout_width="340dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="25dp"
+        android:gravity="center"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
         android:text="Add Loan"
+        android:textSize="16dp"
+        android:backgroundTint="#059669"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appName" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/expenseButton"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="25dp"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
         android:text="Add Expense"
-        android:textSize="10dp"
+        android:textSize="16dp"
+        android:backgroundTint="#059669"
+        app:layout_constraintBottom_toTopOf="@+id/loanButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/incomeButton"
-        app:layout_constraintTop_toBottomOf="@+id/loanButton" />
+        app:layout_constraintStart_toEndOf="@+id/incomeButton" />
 
     <Button
         android:id="@+id/incomeButton"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="25dp"
-        android:textSize="10dp"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
         android:text="Add Income"
+        android:textSize="16dp"
+        android:backgroundTint="#059669"
+        app:layout_constraintBottom_toTopOf="@+id/loanButton"
         app:layout_constraintEnd_toStartOf="@+id/expenseButton"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loanButton" />
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
