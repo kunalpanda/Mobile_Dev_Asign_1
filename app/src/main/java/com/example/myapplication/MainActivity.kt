@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -22,6 +23,9 @@ class MainActivity : AppCompatActivity() {
         val loanButton = findViewById<Button>(R.id.loanButton)
         val incomeButton = findViewById<Button>(R.id.incomeButton)
         val expenseButton = findViewById<Button>(R.id.expenseButton)
+        val dashboardContent = findViewById<TextView>(R.id.dashboardContent)
+
+        updateDashboard(dashboardContent)
 
         // Set click listener to navigate to EMI page
         loanButton.setOnClickListener {
@@ -41,4 +45,50 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    private fun updateDashboard(textView: TextView) {
+        // Calculate total monthly income
+        val totalMonthlyIncome = IncomeManager.getTotalIncome()
+
+        // Calculate total monthly expenditure
+        val oneTimeExpensesMonthly = ExpenseManager.getTotalOneTime() / 12.0
+        val recurringExpenses = ExpenseManager.getTotalRecurring()
+        val loanPayments = LoanManager.getTotalMonthlyPayment()
+        val totalMonthlyExpenditure = oneTimeExpensesMonthly + recurringExpenses + loanPayments
+
+        // Calculate net monthly (income - expenditure)
+        val netMonthly = totalMonthlyIncome - totalMonthlyExpenditure
+
+        // Build display text
+        val textBuilder = StringBuilder()
+
+        textBuilder.append("MONTHLY SUMMARY\n")
+        textBuilder.append("═════════════════\n\n")
+
+        textBuilder.append("Total Monthly Income:\n")
+        textBuilder.append("$${String.format("%.2f", totalMonthlyIncome)}\n\n")
+
+        textBuilder.append("Total Monthly Expenditure:\n")
+        textBuilder.append("$${String.format("%.2f", totalMonthlyExpenditure)}\n\n")
+
+        textBuilder.append("BREAKDOWN\n")
+        textBuilder.append("─────────────────\n")
+        textBuilder.append("One-time Expenses (÷12): $${String.format("%.2f", oneTimeExpensesMonthly)}\n")
+        textBuilder.append("Recurring Expenses: $${String.format("%.2f", recurringExpenses)}\n")
+        textBuilder.append("Loan Payments: $${String.format("%.2f", loanPayments)}\n\n")
+
+        textBuilder.append("═════════════════\n")
+        textBuilder.append("Net Monthly: ")
+
+        if (netMonthly >= 0) {
+            textBuilder.append("$${String.format("%.2f", netMonthly)}\n")
+            textBuilder.append("(Surplus)")
+        } else {
+            textBuilder.append("-$${String.format("%.2f", Math.abs(netMonthly))}\n")
+            textBuilder.append("(Deficit)")
+        }
+
+        textView.text = textBuilder.toString()
+    }
+
 }
