@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-data class Loan(
+data class Loan( //Make a custom data type and class to hold all loan info
     val name: String,
     val principal: Double,
     val interestRate: Double,
@@ -47,9 +47,10 @@ data class Loan(
     }
 }
 
-object LoanManager {
+object LoanManager { //Create object to manage list of loans
     val loans = mutableListOf<Loan>()
 
+    //Number of getters to isolate functionality and improve organization and readability of code
     fun getTotalMonthlyPayment(): Double {
         return loans.sumOf { it.getMonthlyPayment() }
     }
@@ -70,6 +71,7 @@ object LoanManager {
         return loans.sumOf { it.getMonthlyInterest() }
     }
 
+    // Clear function for the list if the user makes a mistake
     fun clearLoans() {
         loans.clear()
     }
@@ -86,6 +88,7 @@ class EmiActivity : AppCompatActivity() {
             insets
         }
 
+        // Variables to handle of of the user inputs and text outputs
         val nameInput = findViewById<EditText>(R.id.loanNameInput)
         val amountInput = findViewById<EditText>(R.id.loanAmountInput)
         val interestInput = findViewById<EditText>(R.id.interestRateInput)
@@ -95,21 +98,23 @@ class EmiActivity : AppCompatActivity() {
         val clearButton = findViewById<Button>(R.id.clearButton)
         val backButton = findViewById<Button>(R.id.backButton)
 
-        // Set click listener to navigate to EMI page
+        // Set click listener to navigate back to the home page
         backButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
+        // Set click listener to clear list
         clearButton.setOnClickListener {
             LoanManager.clearLoans()
             Toast.makeText(this, "All loans cleared", Toast.LENGTH_SHORT).show()
             updateLoanDisplay(loanListText)
         }
 
+        // update display when activity opens (in case user returns to the page)
         updateLoanDisplay(loanListText)
 
-        // Submit button - add loan
+        // Submit button - add loan to list, includes a number of user input verifications
         submitButton.setOnClickListener {
             val name = nameInput.text.toString()
             val amount = amountInput.text.toString().toDoubleOrNull()
@@ -152,7 +157,7 @@ class EmiActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateLoanDisplay(textView: TextView) {
+    private fun updateLoanDisplay(textView: TextView) { //Format paragraph to provide user with useful loan info
         if (LoanManager.loans.isEmpty()) {
             textView.text = "No loans added yet"
         } else {

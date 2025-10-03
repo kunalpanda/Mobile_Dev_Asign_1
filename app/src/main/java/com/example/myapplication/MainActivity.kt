@@ -20,11 +20,14 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        // All variables to handle different kinds of user input and text output
+
         val loanButton = findViewById<Button>(R.id.loanButton)
         val incomeButton = findViewById<Button>(R.id.incomeButton)
         val expenseButton = findViewById<Button>(R.id.expenseButton)
         val dashboardContent = findViewById<TextView>(R.id.dashboardContent)
 
+        // Update content upon opening the activity
         updateDashboard(dashboardContent)
 
         // Set click listener to navigate to EMI page
@@ -33,13 +36,13 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Set click listener to navigate to EMI page
+        // Set click listener to navigate to Income page
         incomeButton.setOnClickListener {
             intent = Intent(this, IncomeActivity::class.java)
             startActivity(intent)
         }
         
-        // Set click listener to navigate to EMI page
+        // Set click listener to navigate to Expense page
         expenseButton.setOnClickListener {
             intent = Intent(this, ExpenseActivity::class.java)
             startActivity(intent)
@@ -48,9 +51,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateDashboard(textView: TextView) {
         // Calculate total monthly income
-        val totalMonthlyIncome = IncomeManager.getTotalIncome()
+        val totalMonthlyIncome = IncomeManager.getTotalIncome() //get income from the income class
 
-        // Calculate total monthly expenditure
+        // Calculate total monthly expenditure, retrieve info from the expenses class
         val oneTimeExpensesMonthly = ExpenseManager.getTotalOneTime() / 12.0
         val recurringExpenses = ExpenseManager.getTotalRecurring()
         val loanPayments = LoanManager.getTotalMonthlyPayment()
@@ -88,6 +91,7 @@ class MainActivity : AppCompatActivity() {
             textBuilder.append("(Deficit)")
         }
 
+        //Output text info dashboard in paragraph format
         textView.text = textBuilder.toString()
     }
 

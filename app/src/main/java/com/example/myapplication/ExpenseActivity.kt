@@ -11,11 +11,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-data class Expense(val name: String, val amount: Double, val monthly: Boolean)
+data class Expense( //Create custom data type and class for holding expense info
+    val name: String,
+    val amount: Double,
+    val monthly: Boolean)
 
-object ExpenseManager {
+object ExpenseManager { //Create manager object to handle list of expense and their various types
     val expenses = mutableListOf<Expense>()
 
+    // Number of getters to isolate functionality and improve readability of code
     fun getTotalExpense(): Double {
         return expenses.sumOf { it.amount }
     }
@@ -36,6 +40,7 @@ object ExpenseManager {
         return getRecurringExpenses().sumOf { it.amount }
     }
 
+    // Clear function in case user makes a mistake or wants to reset
     fun clearExpenses(){
         expenses.clear()
     }
@@ -52,6 +57,7 @@ class ExpenseActivity : AppCompatActivity() {
             insets
         }
 
+        // Variables to handle user inputs and text outputs
         val nameInput = findViewById<EditText>(R.id.expenseNameInput)
         val oneTimeInput = findViewById<EditText>(R.id.oneTimeExpenseInput)
         val recurringInput = findViewById<EditText>(R.id.reoccuringExpenseInput)
@@ -60,14 +66,16 @@ class ExpenseActivity : AppCompatActivity() {
         val submitButton = findViewById<Button>(R.id.submitButton)
         val backButton = findViewById<Button>(R.id.backButton)
 
+        // Update display when activity is opened in case user returns
         updateExpenseDisplay(expenseListText)
 
-        // Set click listener to navigate to EMI page
+        // Set click listener to navigate back to the home page
         backButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
+        // Set click listener to clear expenses
         clearButton.setOnClickListener {
             ExpenseManager.clearExpenses()
             updateExpenseDisplay(expenseListText)
@@ -77,19 +85,19 @@ class ExpenseActivity : AppCompatActivity() {
             Toast.makeText(this, "Expenses cleared", Toast.LENGTH_SHORT).show()
         }
 
-        // Set click listener to show toast
+        // Submit button - add expense, includes a number of user input verification
         submitButton.setOnClickListener {
             val name = nameInput.text.toString()
             val oneTimeAmount = oneTimeInput.text.toString().toDoubleOrNull()
             val recurringAmount = recurringInput.text.toString().toDoubleOrNull()
 
-            // Validate name is entered
+            // Various input validation functions
             if (name.isEmpty()) {
                 Toast.makeText(this, "Please enter expense name", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Check if at least one amount is entered
+
             if ((oneTimeAmount == null || oneTimeAmount <= 0) &&
                 (recurringAmount == null || recurringAmount <= 0)) {
                 Toast.makeText(this, "Please enter at least one valid amount", Toast.LENGTH_SHORT).show()
@@ -106,6 +114,7 @@ class ExpenseActivity : AppCompatActivity() {
                 ExpenseManager.expenses.add(Expense("$name (Monthly)", recurringAmount, true))
             }
 
+            //Let the user know their extry has been add to the system
             Toast.makeText(this, "Expense(s) added", Toast.LENGTH_SHORT).show()
 
             // Clear inputs
@@ -119,7 +128,7 @@ class ExpenseActivity : AppCompatActivity() {
     }
 
 
-    private fun updateExpenseDisplay(textView: TextView) {
+    private fun updateExpenseDisplay(textView: TextView) { // Format paragraph to provide user with useful and categorized expense info
         if (ExpenseManager.expenses.isEmpty()) {
             textView.text = "No expenses added yet"
         } else {
