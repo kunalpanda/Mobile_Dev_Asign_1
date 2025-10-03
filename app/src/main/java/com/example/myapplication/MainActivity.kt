@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         val loanButton = findViewById<Button>(R.id.loanButton)
+        val incomeButton = findViewById<Button>(R.id.incomeButton)
+        val expenseButton = findViewById<Button>(R.id.expenseButton)
 
         // Set click listener to navigate to EMI page
         loanButton.setOnClickListener {
@@ -27,16 +29,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val incomeButton = findViewById<Button>(R.id.incomeButton)
-
         // Set click listener to navigate to EMI page
         incomeButton.setOnClickListener {
             intent = Intent(this, IncomeActivity::class.java)
             startActivity(intent)
         }
-
-        val expenseButton = findViewById<Button>(R.id.expenseButton)
-
+        
         // Set click listener to navigate to EMI page
         expenseButton.setOnClickListener {
             intent = Intent(this, ExpenseActivity::class.java)

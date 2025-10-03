@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".ExpenseActivity">
 
-
     <View
         android:id="@+id/colorBlock"
         android:layout_width="0dp"
@@ -16,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
     <TextView
         android:id="@+id/pageTitle"
         android:layout_width="wrap_content"
@@ -31,12 +31,12 @@
         app:layout_constraintTop_toBottomOf="@+id/colorBlock" />
 
     <EditText
-        android:id="@+id/oneTimeExpenseInput"
+        android:id="@+id/expenseNameInput"
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:layout_marginTop="24dp"
-        android:hint="Enter one time expense ($)"
-        android:inputType="numberDecimal"
+        android:hint="Enter Expense Name"
+        android:inputType="textCapWords"
         android:padding="12dp"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,10 +44,23 @@
         app:layout_constraintTop_toBottomOf="@+id/pageTitle" />
 
     <EditText
+        android:id="@+id/oneTimeExpenseInput"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:hint="Enter one time expense ($)"
+        android:inputType="numberDecimal"
+        android:padding="12dp"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/expenseNameInput" />
+
+    <EditText
         android:id="@+id/reoccuringExpenseInput"
         android:layout_width="350dp"
         android:layout_height="50dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="10dp"
         android:hint="Enter monthly expense ($)"
         android:inputType="numberDecimal"
         android:padding="12dp"
@@ -55,6 +68,44 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/oneTimeExpenseInput" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/clearButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reoccuringExpenseInput">
+
+        <TextView
+            android:id="@+id/expenseListText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No expenses added yet"
+            android:textSize="16sp" />
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/clearButton"
+        android:layout_width="340dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#059669"
+        android:gravity="center"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:text="Clear"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/submitButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
     <Button
         android:id="@+id/submitButton"
@@ -71,6 +122,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent" />
+
 
     <Button
         android:id="@+id/backButton"
